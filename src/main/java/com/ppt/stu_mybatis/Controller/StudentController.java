@@ -1,5 +1,6 @@
 package com.ppt.stu_mybatis.Controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,24 +68,39 @@ public class StudentController {
 			return "STU001";
 		}
         studentMapper.addstudent(sbean);
+		String[] attendCourses = new String[sbean.getAttendCourses().size()];
+		attendCourses = sbean.getAttendCourses().toArray(attendCourses);
+		for (int i = 0; i < attendCourses.length; i++) {
+			studentMapper.insertStudentCourse(sbean.getStudent_id(), attendCourses[i]);
+		}
 		return "redirect:/setupaddstudentagain";	
 	}
 
     @GetMapping("/setupstudentsearch")
-	public String studentManagement(ModelMap model) {	
+	public String studentManagement(ModelMap model) {
 		List<StudentBean> studentList = studentMapper.selectAll();
+		for(StudentBean student : studentList){
+			List<String> clist = courseMapper.selectCidBySid(student.getStudent_id());
+			student.setAttendCourses(clist);
+		}
 		model.addAttribute("studentList", studentList);
 		return "STU003";
 	}
 	
 	@GetMapping("/studentdetail")
 	public ModelAndView seeMore(@RequestParam("id") String id, ModelMap model) {
-        //StudentBean student = studentMapper.findById(id);
+        StudentBean student = studentMapper.findStudnetById(id);
         List<CourseBean> courseList = courseMapper.selectAll();
-		List<StudentBean> student = studentMapper.findByStudentid(id);
+		List<CourseBean> couList = courseMapper.selectCoursesByStudentId(id);
+		//List<StudentBean> student = studentMapper.findByStudentid(id);
+		List<String> stuCourseList=new ArrayList<String>();
+	 	for(CourseBean course: couList) {
+	 		stuCourseList.add(course.getClass_id());
+	 	}
+		student.setAttendCourses(stuCourseList);
 		model.addAttribute("courseList", courseList);
 		model.addAttribute("data", student);
-		return new ModelAndView ("STU002", "sbean", studentMapper.findStudnetById(id));
+		return new ModelAndView ("STU002", "sbean", student);
 	}
 
     @PostMapping("/updatestudent")
@@ -98,13 +114,19 @@ public class StudentController {
 			model.addAttribute("error", "Fill the blank !!");
 			return "STU002";
 		}
-        studentMapper.addstudent(sbean);
+        studentMapper.updateStudent(sbean);
+		studentMapper.deleteAttendCoursesByStudentId(sbean.getStudent_id());
+		String[] attendCourses = new String[sbean.getAttendCourses().size()];
+		attendCourses = sbean.getAttendCourses().toArray(attendCourses);
+		for (int i = 0; i < attendCourses.length; i++) {
+			studentMapper.insertStudentCourse(sbean.getStudent_id(), attendCourses[i]);
+		}
 		return "redirect:/setupstudentsearch";
 	}
 	
-	
 	@GetMapping("/deleteStudent")
 	public String deleteStudent(@RequestParam("id") String id) {
+		studentMapper.deleteAttendCoursesByStudentId(id);
 		studentMapper.deleteStudent(id);
 		return "redirect:/setupstudentsearch";
 	}
@@ -116,13 +138,46 @@ public class StudentController {
 		String sid = id.isBlank() ? "%$&*" : "%" + id + "%";
 		String sname = name.isBlank() ? "%$&*" : "%" + name + "%";
 		String scourse = course.isBlank() ? "%$&*" : "%" + course + "%";
-		
-		if(id.isBlank() && name.isBlank() && course.isBlank()){
-			return "redirect:/setupstudentsearch";
-		}else{
-			List<StudentBean> studentList = studentMapper.selectBySidOrSnameOrCname(sid, sname, scourse);
-			model.addAttribute("studentList", studentList);
-		return "STU003";
-		}	
+		List<StudentBean> studentList = studentMapper.selectBySidOrSnameOrCname(sid, sname, scourse);
+		for (StudentBean student : studentList) {
+			List<String> clist = courseMapper.selectCidBySid(student.getStudent_id());
+			student.setAttendCourses(clist);
+		}
+		if (studentList.size() == 0) {
+			studentList = studentMapper.selectAll();
+		for (StudentBean student : studentList) {
+			List<String> clist = courseMapper.selectCidBySid(student.getStudent_id());
+			student.setAttendCourses(clist);
+		}
+		model.addAttribute("studentList", studentList);
+ 			return "STU003";
+	}
+		model.addAttribute("studentList", studentList);
+			return "STU003";	
 	}
 }
+
+// String sid = id.isBlank() ? ")#<>(}" : id;
+// 		String sname = name.isBlank() ? ")#<>(}" : name;
+// 		String scourse = course.isBlank() ? ")#<>(}" : course;
+// 		System.out.println( "sid => " + sid + " " + "sname => " + sname + " " + "scourse => " + scourse);
+// 		List<StudentResponseDTO> studentList = studentDao.selectStudentListByIdOrNameOrCourse(sid, sname, scourse);
+// 		System.out.println("first studentList => " + studentList);
+// 		for (StudentResponseDTO student : studentList) {
+// 			List<String> clist = classDao.selectCidByStuid(student.getStudentid());
+// 			student.setAttendCourses(clist);
+// 		}
+// 		if (studentList.size() == 0) {
+// 			studentList = studentDao.selectAll();
+// 			System.out.println("second studentList => " + studentList);
+// 			for (StudentResponseDTO student : studentList) {
+// 				System.out.println(student);
+// 				List<String> clist = classDao.selectCidByStuid(student.getStudentid());
+// 				student.setAttendCourses(clist);
+// 				System.out.println("---------------------------");
+// 			}
+// 			model.addAttribute("studentList", studentList);
+// 			return "STU003";		
+// 		}
+// 		model.addAttribute("studentList", studentList);
+// 		return "STU003";	

@@ -22,11 +22,11 @@
 				</div>
 				<div class="col-md-6">
             <p>User: 
-            <!--<th:block th:text="${session.userInfo.user_id}"></th:block>
-            <th:block th:text="${session.userInfo.user_name}"></th:block>-->
+            <th:block th:text="${session.userInfo.user_id}"></th:block>
+            <th:block th:text="${session.userInfo.user_name}"></th:block>
             </p>
             <p>Current Date : 
-				<!--<th:block th:text="${session.date}"></th:block>-->
+				<th:block th:text="${session.date}"></th:block>
 			</p>
         </div>
 				<div class="col-md-1">
@@ -139,9 +139,9 @@
 						<div class="col-md-6 offset-md-4 ms-4">
 							
 			<div th:each="data: ${courseList}" style="display:inline" >
-			<input class="form-check-input" type="checkbox" th:field="*{attendCourses}" id="gridRadios1" th:value="${data.classid}"> 
+			<input class="form-check-input" type="checkbox" th:field="*{attendCourses}" id="gridRadios1" th:value="${data.class_id}"> 
 			<label class="form-check-label" for="gridRadios1"> 
-				<span th:text="${data.classname}"></span>
+				<span th:text="${data.class_name}"></span>
 			</label>					
 			</div>
 			<label th:if="${#fields.hasErrors('attendCourses')}" th:errors="*{attendCourses}" style="color: red;">Error</label>
@@ -165,8 +165,7 @@
 								<!--<td><a th:href="@{/deleteuser(id=${data.userid})}">
 									th:href="@{/deleteStudent/+${sbean.studentid}}"-->
 									
-			<a th:each="stuId: ${data}"
-			th:href="@{/deleteStudent/(id=${stuId.student_id})}">
+			<a th:href="@{/deleteStudent/(id=${sbean.student_id})}">
 							<button type="button" class="btn btn-danger"
 								data-bs-toggle="modal" data-bs-target="#exampleModal">
 								<span>Delete</span>
