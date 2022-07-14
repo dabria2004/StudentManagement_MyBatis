@@ -70,50 +70,50 @@
 						<div class="col-md-2"></div>
 						<label for="email" class="col-md-2 col-form-label">Id</label>
 						<div class="col-md-4">
-							<input type="text" class="form-control" th:field="*{userid}" readonly>
+							<input type="text" class="form-control" th:field="*{user_id}" readonly>
 						</div>
 					</div>
 					<div class="row mb-4">
 						<div class="col-md-2"></div>
 						<label for="email" class="col-md-2 col-form-label">Name</label>
 						<div class="col-md-4">
-							<input type="text" class="form-control" th:field="*{username}">
-							<label th:if="${#fields.hasErrors('username')}" th:errors="*{username}" style="color: red;">Error</label>
+							<input type="text" class="form-control" th:field="*{user_name}">
+							<label th:if="${#fields.hasErrors('user_name')}" th:errors="*{user_name}" style="color: red;">Error</label>
 						</div>
 					</div>
 					<div class="row mb-4">
 						<div class="col-md-2"></div>
 						<label for="email" class="col-md-2 col-form-label">Email</label>
 						<div class="col-md-4">
-							<input type="email" class="form-control" id="email" th:field="*{email}">
-							<label th:if="${#fields.hasErrors('email')}" th:errors="*{email}" style="color: red;">Error</label>
+							<input type="email" class="form-control" id="email" th:field="*{user_email}">
+							<label th:if="${#fields.hasErrors('user_email')}" th:errors="*{user_email}" style="color: red;">Error</label>
 						</div>
 					</div>
 					<div class="row mb-4">
 						<div class="col-md-2"></div>
 						<label for="Passowrd" class="col-md-2 col-form-label">Password</label>
 						<div class="col-md-4">
-							<input type="password" class="form-control" id="name" th:field="*{password}">
-							<label th:if="${#fields.hasErrors('password')}" th:errors="*{password}" style="color: red;">Error</label>
+							<input type="password" class="form-control" id="name" th:field="*{user_password}">
+							<label th:if="${#fields.hasErrors('user_password')}" th:errors="*{user_password}" style="color: red;">Error</label>
 						</div>
 					</div>
 					<div class="row mb-4">
 						<div class="col-md-2"></div>
 						<label for="confirmPassword" class="col-md-2 col-form-label">Confirm Password</label>
 						<div class="col-md-4">
-							<input type="password" class="form-control" id="confirmPassword" th:field="*{conpassword}">
-							<label th:if="${#fields.hasErrors('conpassword')}" th:errors="*{conpassword}" style="color: red;">Error</label>
+							<input type="password" class="form-control" id="confirmPassword" th:field="*{user_conpassword}">
+							<label th:if="${#fields.hasErrors('user_conpassword')}" th:errors="*{user_conpassword}" style="color: red;">Error</label>
 						</div>
 					</div>
 					<div class="row mb-4">
 						<div class="col-md-2"></div>
 						<label for="userRole" class="col-md-2 col-form-label">User Role</label>
 						<div class="col-md-4">
-							<select th:field="*{role}" class="form-select" aria-label="Education" id="userRole">
+							<select th:field="*{user_role}" class="form-select" aria-label="Education" id="userRole">
 								<option value="Admin" selected>Admin</option>
 								<option value="User">User</option>
 							</select>
-							<label th:if="${#fields.hasErrors('role')}" th:errors="*{role}" style="color: red;">Error</label>
+							<label th:if="${#fields.hasErrors('user_role')}" th:errors="*{user_role}" style="color: red;">Error</label>
 						</div>
 					</div>
 					<div class="row mb-4">

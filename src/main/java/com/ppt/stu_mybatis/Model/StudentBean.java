@@ -13,8 +13,8 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class StudentBean {
-    private String stuId;
-    private String stuName;
+    private String student_id;
+    private String student_name;
     private String dob;
     private String gender;
     private String phone;

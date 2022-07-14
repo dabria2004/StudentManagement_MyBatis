@@ -99,12 +99,12 @@
 					<tbody>
 
 						<tr th:each="data: ${searchInfo}">
-							<td th:text="${data.userid}" />
-							<td th:text="${data.username}" />
-							<td><a th:href="@{/setupUpdateUser(id=${data.userid})}">
+							<td th:text="${data.user_id}" />
+							<td th:text="${data.user_name}" />
+							<td><a th:href="@{/setupUpdateUser(id=${data.user_id})}">
 									<button type="button" class="btn btn-success">Update</button>
 							</a></td>
-							<td><a th:href="@{/deleteuser(id=${data.userid})}">
+							<td><a th:href="@{/deleteuser(id=${data.user_id})}">
 									<button type="button" class="btn btn-secondary mb-3"
 										data-bs-toggle="modal" data-bs-target="#exampleModal">
 										Delete</button>

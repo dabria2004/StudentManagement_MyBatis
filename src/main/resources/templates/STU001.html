@@ -73,7 +73,7 @@
 						<label for="name" class="col-md-2 col-form-label">Name</label>
 						<div class="col-md-4">
 							<input type="text" class="form-control" id="name" th:field="*{studentname}">
-							<label th:if="${#fields.hasErrors('studentname')}" th:errors="*{studentname}" style="color: red;">Error</label>
+							<label th:if="${#fields.hasErrors('student_name')}" th:errors="*{student_name}" style="color: red;">Error</label>
 						</div>
 					</div>
 					<div class="row mb-4">
