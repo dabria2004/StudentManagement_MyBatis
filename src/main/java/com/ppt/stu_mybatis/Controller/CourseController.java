@@ -60,8 +60,7 @@ public class CourseController {
 		if(courseMapper.existsByClassName(cbean.getClass_name())){
             model.addAttribute("classname", "Class name already exists.");
             return "BUD003";
-        }
-         else {
+        }else {
 			courseMapper.addCourse(cbean);
 			return "redirect:/setupaddclassagain";
 		}

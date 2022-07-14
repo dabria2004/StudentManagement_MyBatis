@@ -13,7 +13,9 @@ void addCourse(CourseBean cBean);
 @Select("select * from class")
 List<CourseBean> selectAll();
 
-@Select("select * form class where class_name = #{class_name}")
+// @Select("SELECT EXISTS(SELECT 1 FROM user WHERE userMail=#{userMail} AND userPassword=#{userPassword})")
+//     boolean existsByEmailAndPassword(String userMail,String userPassword);
+@Select("SELECT EXISTS(SELECT 1 FROM class WHERE class_name=#{class_name})")
 Boolean existsByClassName(String className);
 }
 

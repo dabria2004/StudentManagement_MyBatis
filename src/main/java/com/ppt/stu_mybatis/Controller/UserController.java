@@ -82,8 +82,9 @@ public class UserController {
 	}
 
     @GetMapping(value="/setupUpdateUser")
-	public ModelAndView setupUpdateUser(@RequestParam("id") String userid) {
-		return new ModelAndView("USR002","user", userMapper.selectUserById(userid));
+	public ModelAndView setupUpdateUser(@RequestParam("id") String user_id) {
+		UserBean userBean = userMapper.selectUserById(user_id);
+		return new ModelAndView("USR002","user", userBean);
 	}
 	
 	@PostMapping(value="/updateuser")
@@ -105,7 +106,7 @@ public class UserController {
 		}
 		else {
 		    user = new UserBean(user.getUser_id(), user.getUser_name(), user.getUser_email(), user.getUser_password(), user.getUser_conpassword(), user.getUser_role());
-			userMapper.insertUser(user);
+			userMapper.updateUserById(user);
             return "redirect:/setupusersearch";
 		}
 	}
