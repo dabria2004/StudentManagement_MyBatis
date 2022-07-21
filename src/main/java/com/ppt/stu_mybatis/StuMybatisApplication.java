@@ -1,7 +1,9 @@
 package com.ppt.stu_mybatis;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.ibatis.type.MappedTypes;
 import org.mybatis.spring.annotation.MapperScan;
@@ -38,8 +40,9 @@ public class StuMybatisApplication {
 	}
 
 	@GetMapping("/report/{format}")
-	public String generateReport(@PathVariable String format) throws FileNotFoundException, JRException{
-		return reportService.exportReport(format);
+	public void generateReport(@PathVariable String format,HttpServletResponse response ) throws JRException, IOException{
+		// return
+		 reportService.exportReport(format, response );
 	}
 
 	public static void main(String[] args) {
